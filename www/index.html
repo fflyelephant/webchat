@@ -1,0 +1,77 @@
+<html>
+<head>
+<!--contains some description infomation-->
+<meta http-equiv="X-UA-Compatible" Content="IE=9">
+<meta http-equiv="Content-Type" Content="text/html"; charset="utf-8">
+<meta http-equiv="Content-Type" Content="text/css">
+<meta name="author" Content="Stone">
+<meta name="description" Content="Chat base on node.js + websocket + bootstrap">
+
+<link rel=stylesheet type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+
+<!--At first should be contains jquery version <1.9~4.0>-->
+<script type="text/javascript" src="/JS/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!--contains websocket-->
+<script type="text/javascript" charset="utf-8" src="/socket.io/socket.io.js"></script>
+
+<!--调整登陆界面在页面中部-->
+<style> 
+.col-center-block {  
+    float: none;  
+    display: block;  
+    margin: 100 auto;
+}  
+</style> 
+
+<script type="text/javascript">
+$(document).ready(function(){
+	var socket = io.connect();
+	var obj_login_btn = document.getElementById('login_btn');
+	var obj_login_page = document.getElementById('login_page')
+	obj_login_btn.onclick = function(){
+		alert("push button!");
+		obj_login_page.style.display = "none";
+		socket.emit('foo','I am client');
+	};
+
+});
+
+</script>
+<title>Chit</title>
+<body>
+
+<div class="container" id="login_register_page">
+
+</div>
+
+<!--登录界面-->
+<div class="container col-center-block" id="login_page">   
+    <div class="col-xs-6 col-md-4 col-center-block">  
+      <form>  
+        <h2 class="form-signin-heading">请登录</h2>  
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" style="width:100px">用户名</span>
+            <input type="text" class="form-control" placeholder="用户名" required autofocus>
+        </div>
+        <br/>
+        <div class="input-group input-group-lg">
+      	  	<span class="input-group-addon" style="width:100px">密码</span>
+       	 	<input type="text" class="form-control" placeholder="密码" required autofocus>
+    	</div>
+
+        <!--
+        <div class="checkbox">  
+          <label>  
+            <input type="checkbox" value="remember-me">  
+            记住我 </label>  
+        </div>
+        -->  
+        <button id="login_btn" class="btn btn-lg btn-primary btn-block glyphicon glyphicon-user" type="submit">&nbsp;登录</button>  
+      </form>    
+  </div>  
+</div>  
+</body>
+</head>
+</html>

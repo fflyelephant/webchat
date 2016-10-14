@@ -1,5 +1,5 @@
 # webchat
-Base on node.js + Bootstrap to imitate zhihu
+Base on node.js 
 
 #目录
 node_modules  -->  node.js相关库文件(ext socket.io express ...)

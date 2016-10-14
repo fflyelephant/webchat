@@ -7,12 +7,13 @@
 <meta name="author" Content="Stone">
 <meta name="description" Content="Chat base on node.js + websocket + bootstrap">
 
-<link rel=stylesheet type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
-
+<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="/CSS/css.css"/>
 <!--At first should be contains jquery version <1.9~4.0>-->
 <script type="text/javascript" src="/JS/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
-
+<!--前端JS处理文件webchat.js-->
+<script type="text/javascript" src="./scripts/webchat.js"></script>
 <!--contains websocket-->
 <script type="text/javascript" charset="utf-8" src="/socket.io/socket.io.js"></script>
 
@@ -22,45 +23,46 @@
     float: none;  
     display: block;  
     margin: 100 auto;
-}  
+};
+
 </style> 
 
-<script type="text/javascript">
-$(document).ready(function(){
-	var socket = io.connect();
-	var obj_login_btn = document.getElementById('login_btn');
-	var obj_login_page = document.getElementById('login_page')
-	obj_login_btn.onclick = function(){
-		alert("push button!");
-		obj_login_page.style.display = "none";
-		socket.emit('foo','I am client');
-	};
-
-});
-
-</script>
 <title>Chit</title>
 <body>
 
-<div class="container" id="login_register_page">
-
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 align="center" class="modal-title" id="myModalLabel">正在连接服务器......</h4>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+  $('#myModal').modal({
+    keyboard:false,//关闭ESC退出模态框效果
+    backdrop:false //关闭点击其他区域退出模态框效果
+  });
+</script>
 
 <!--登录界面-->
 <div class="container col-center-block" id="login_page">   
     <div class="col-xs-6 col-md-4 col-center-block">  
-      <form>  
         <h2 class="form-signin-heading">请登录</h2>  
         <div class="input-group input-group-lg">
             <span class="input-group-addon" style="width:100px">用户名</span>
-            <input type="text" class="form-control" placeholder="用户名" required autofocus>
+            <input type="text" id="username" class="form-control" placeholder="用户名" required autofocus>
         </div>
         <br/>
+        <!--
         <div class="input-group input-group-lg">
       	  	<span class="input-group-addon" style="width:100px">密码</span>
-       	 	<input type="text" class="form-control" placeholder="密码" required autofocus>
-    	</div>
+       	 	<input type="text" id="password" class="form-control" placeholder="密码" required autofocus>
 
+    	</div>
+      -->
         <!--
         <div class="checkbox">  
           <label>  
@@ -68,10 +70,23 @@ $(document).ready(function(){
             记住我 </label>  
         </div>
         -->  
-        <button id="login_btn" class="btn btn-lg btn-primary btn-block glyphicon glyphicon-user" type="submit">&nbsp;登录</button>  
-      </form>    
+        <button id="login_btn" class="btn btn-lg btn-primary btn-block glyphicon glyphicon-user" type="submit">&nbsp;登录</button>   
   </div>  
-</div>  
+</div> 
+
+<!--聊天界面-->
+<div class="container col-center-block" id="chat_page" style="display:none">   
+  <div class="col-xs-6 col-md-4 col-center-block">  
+         <div id="messageShow">
+         </div>
+       <div>
+         <textarea id="messageInput" placeHolder="enter to send"></textarea>
+         <button id="sendBtn" class="btn btn-primary btn-xs" type="submit">发送信息</button>   
+       </div>
+  </div>  
+</div> 
 </body>
 </head>
 </html>
+
+

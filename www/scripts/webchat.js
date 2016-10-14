@@ -76,7 +76,7 @@ webchat.prototype.init = function(){
 		{
 			//向自己显示发送的内容
 			self.displayMsg('me',send_value,'green');
-			//向服务器说我发送的内容,服务器知道之后就向所有客户端广播你的内容
+			//向服务器说我发送的内容,服务器知道之后就向除你之外客户端广播你的内容
 			self.socket.emit('postMsg',send_value);
 		}
 		document.getElementById('messageInput').value = '';
